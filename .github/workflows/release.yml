@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libglib2.0-bin zip
+
+      - name: Check tag matches metadata version
+        run: |
+          version=$(python3 -c 'import json; print(json.load(open("metadata.json"))["version"])')
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match metadata.json version $version" >&2
+            exit 1
+          fi
+
+      - name: Pack
+        run: make pack
+
+      - name: Extract release notes
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          awk -v v="$version" '
+            $0 ~ "^## \\[" v "\\]" { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > notes.md
+          cat notes.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/*.shell-extension.zip \
+            --title "OneSpace $GITHUB_REF_NAME" \
+            --notes-file notes.md

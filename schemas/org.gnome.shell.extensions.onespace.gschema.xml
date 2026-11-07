@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.onespace" path="/org/gnome/shell/extensions/onespace/">
+    <key name="maximize" type="b">
+      <default>true</default>
+      <summary>Maximize new windows</summary>
+    </key>
+    <key name="group-same-app" type="b">
+      <default>false</default>
+      <summary>Keep new windows of an app on the workspace where that app already has a window</summary>
+    </key>
+    <key name="leave-empty-workspace" type="b">
+      <default>true</default>
+      <summary>Switch to the neighbouring workspace when the last window on the current one closes</summary>
+    </key>
+    <key name="excluded-apps" type="as">
+      <default>[]</default>
+      <summary>Desktop file IDs of apps that open on the current workspace</summary>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,9 @@
+{
+  "uuid": "onespace@pripanggalih.github.io",
+  "name": "OneSpace",
+  "description": "One app per workspace. Every new app window opens on its own workspace, maximized, and empty workspaces are left automatically when the last window closes.\n\nRequires dynamic workspaces.",
+  "shell-version": ["50"],
+  "url": "https://github.com/pripanggalih/gnome-onespace",
+  "settings-schema": "org.gnome.shell.extensions.onespace",
+  "version": 1
+}

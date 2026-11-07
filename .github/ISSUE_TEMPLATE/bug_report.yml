@@ -1,0 +1,49 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: shell
+    attributes:
+      label: GNOME Shell version
+      description: Output of `gnome-shell --version`
+      placeholder: GNOME Shell 50.1
+    validations:
+      required: true
+  - type: input
+    id: extension
+    attributes:
+      label: OneSpace version
+      description: Shown by `gnome-extensions info onespace@pripanggalih.github.io`
+    validations:
+      required: true
+  - type: dropdown
+    id: session
+    attributes:
+      label: Session type
+      options: [Wayland, X11]
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution
+      placeholder: Ubuntu 26.10
+  - type: textarea
+    id: apps
+    attributes:
+      label: Affected apps
+      description: Which apps show the problem? Other extensions you have enabled are useful too (`gnome-extensions list --enabled`).
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant output of `journalctl -o cat /usr/bin/gnome-shell` while reproducing the problem.
+      render: text
